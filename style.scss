@@ -1,0 +1,160 @@
+/* mixins */
+
+@mixin linear-gradient($color, $range) {
+    background: linear-gradient(lighten($color, $range), darken($color, $range));
+}
+
+/* variables */
+
+$primary-color: #dbeffc;
+$primary-color-dark: darken(#dbeffc,40%);
+$primary-color-very-dark: darken(#dbeffc,70%);
+
+/* general styles */
+
+body {
+    font-family: sans-serif;
+    padding: 40px;
+}
+
+.col {
+    float: left;
+}
+
+.inner {
+    padding: 0.5em;
+}
+
+.clearfix:after { 
+   content: "."; 
+   visibility: hidden; 
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.btn {
+    @include linear-gradient($primary-color-dark, 20%);
+    border: 3px solid #fff;
+    border-radius: 6px;
+    box-shadow: 0 5px 5px #aaa;
+    color: #fff;
+    font-size: 1em;
+    padding: 0.5em 1em;
+}
+
+.pull-to-br {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* panel */
+
+.panel {
+    margin-bottom: 1em;
+    border: 1px solid $primary-color-dark;
+    width: 920px;
+}
+
+.panel-heading {
+    background: linear-gradient(lighten($primary-color,3%), darken($primary-color,3%));
+    border-bottom: 1px solid $primary-color-dark;
+    position: relative;
+    .icon {
+        background: #fff;
+        border: 1px solid #aaa;
+        border-radius: 9px;
+        display: inline-block;
+        height: 2.75em;
+        margin-left: 0.75em;
+        position: absolute;
+        top: -0.5em;
+        width: 2.75em;
+        span {
+            background: linear-gradient(lighten($primary-color,10%), darken($primary-color,10%));
+            border: 1px solid #aaa;
+            border-radius: 6px;
+            position: absolute;
+            text-align: center;
+            top: 2px; right: 2px; bottom: 2px; left: 2px;
+            i {
+                color: $primary-color-very-dark;
+                font-size: 1.5em;
+                line-height: 1.65em;
+            }
+        }
+    }
+    h2 {
+        color: $primary-color-very-dark;
+        margin: 0;
+        padding-left: 3em;
+    }
+}
+
+.panel-body-chart {
+    height: 300px;
+    width: 70%;
+}
+
+.panel-body-info {
+    $padding-side: 2%;
+    $width: 30%;
+    padding: 2em $padding-side 2em $padding-side;
+    width: $width - 2*$padding-side;
+    > div {
+        position: relative;
+        min-height: 200px;
+    }
+}
+
+/* metrics */
+
+.metrics {
+    color: $primary-color-very-dark;
+    font-size: 3em;
+    margin: 0;
+    small {
+        color: $primary-color-dark;
+        font-size: 0.5em;
+        padding-right: 0.15em;
+        vertical-align: super;
+    }
+}
+
+.metrics-subtitle {
+    color: $primary-color-dark;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+
+/* responsive */
+
+@media (max-width: 1024px) {
+    
+    .panel {
+        width: 500px;
+    }
+    
+    .panel-body {
+        > div {
+            width: 100%;
+        }
+        .panel-body-info {
+            $padding-side: 5%;
+            $width: 100%;
+            padding: 2em $padding-side 1em $padding-side;
+            width: $width - 2*$padding-side;
+            > div {
+                min-height: inherit;
+                padding-right: 250px;
+            }
+        }
+    }
+    
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Evojam Charts</title>
+        <link href="style.css" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    </head>
+    <body>
+        
+        <div class="panel">
+            <div class="panel-heading inner">
+                <span class="icon"><span><i class="fa fa-usd"></i></span></span>
+                <h2>Revenue by Solution</h2>
+            </div>
+            <div class="panel-body inner clearfix">
+                <div id="chart-line" class="col panel-body-chart"></div>
+                <div class="col panel-body-info align-right">
+                    <div>
+                        <h2 class="metrics metrics-with-subtitle"><small>$</small>32,556</h2>
+                        <p class="metrics-subtitle">Revenue Stream</p>
+                        <button class="btn pull-to-br">Revenue Analysis</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel">
+            <div class="panel-heading inner">
+                <span class="icon"><span><i class="fa fa-download"></i></span></span>
+                <h2>Installations</h2>
+            </div>
+            <div class="panel-body inner clearfix">
+                <div id="chart-column" class="col panel-body-chart"></div>
+                <div class="col panel-body-info align-right">
+                    <div>
+                        <h2 class="metrics metrics-with-subtitle">136</h2>
+                        <p class="metrics-subtitle">Installations</p>
+                        <button class="btn pull-to-br">View installations</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+
+        chartsCommon = {
+            primaryColor: "#117fc7",
+            seriesColors : ["#ed6e37","#259e01","#15a0c8"],
+            chartsArea: {width: '80%', height: '50%'}
+        }  
+
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(function(){
+            drawCharts();
+        });
+
+        var resizeTimer;
+        window.onresize = function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function(){
+                drawCharts();
+            }, 50);
+        }
+
+        function drawCharts() {
+            drawLineChart();
+            drawColumnChart();
+        }
+        function drawLineChart() {
+            
+            // mock data
+            var data = google.visualization.arrayToDataTable([
+                ['Week', 'Net Comp', 'AnalyzerHR', 'Question Right'],
+                ['Week 48',  600, 500, 400],
+                ['Week 49',  700, 500, 400],
+                ['Week 50',  800, 600, 500],
+                ['Week 51',  900, 600, 400],
+                ['Week 52',  300, 250, 200]
+            ]);
+
+            var options = {
+                chartArea: chartsCommon.chartsArea,
+                colors: chartsCommon.seriesColors,
+                hAxis: {
+                    textStyle: {
+                        color: chartsCommon.primaryColor
+                    }
+                },
+                legend : {
+                    position: 'bottom'
+                },
+                lineWidth: 6,
+                pointSize: 10,
+                title: "Revenue per week",
+                titleTextStyle: {
+                    color: chartsConfig.primaryColor
+                },
+                vAxis: {
+                    baselineColor : "#ccc",
+                    minValue: 0,
+                    ticks: [500,1000],
+                    format: "#$",
+                    textStyle: {
+                        color: chartsConfig.primaryColor
+                    }
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart-line'));
+            chart.draw(data, options);
+        }
+
+        function drawColumnChart() {
+
+            // mock data
+            var data = google.visualization.arrayToDataTable([
+                ['Week', 'Net Comp', 'AnalyzerHR', 'Question Right'],
+                ['Week 48',  6, 4, 3],
+                ['Week 49',  7, 5, 4],
+                ['Week 50',  8, 6, 5],
+                ['Week 51',  7, 6, 4],
+                ['Week 52',  5, 4, 3]
+            ]);
+
+            var options = {
+                bar : {
+                    groupWidth: "30%"
+                },
+                chartArea: chartsCommon.chartsArea,
+                colors: chartsCommon.seriesColors,
+                hAxis: {
+                    textStyle: {
+                        color: chartsCommon.primaryColor
+                    }
+                },
+                legend : {
+                    position: 'bottom'
+                },
+                title: "Installations per day",
+                titleTextStyle: {
+                    color: chartsCommon.primaryColor
+                },
+                vAxis: {
+                    baselineColor : "#ccc",
+                    minValue: 0,
+                    ticks: [5,10],
+                    textStyle: {
+                        color: chartsCommon.primaryColor
+                    }
+                }
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart-column'));
+            chart.draw(data, options);
+
+        }
+        </script>
+    </body>
+</html>
