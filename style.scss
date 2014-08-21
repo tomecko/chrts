@@ -43,8 +43,12 @@ body {
     border-radius: 6px;
     box-shadow: 0 5px 5px #aaa;
     color: #fff;
+    cursor: pointer;
     font-size: 1em;
     padding: 0.5em 1em;
+    &:hover {
+        @include linear-gradient($primary-color-dark, 30%);
+    }
 }
 
 .pull-to-br {
